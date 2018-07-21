@@ -40,9 +40,9 @@ def install_docker():
 def install_compose():
     s0 = os.system("sudo apt update")
     assert s0 == 0, "apt 更新失败"
-    s1 = os.system("sudo apt install python-pip")
+    s1 = os.system("sudo apt install -y -qq --no-install-recommends python-pip >/dev/null")
     assert s1 == 0, "安装pip失败"
-    s2 = os.system("sudo apt install python3-pip")
+    s2 = os.system("sudo apt install -y -qq --no-install-recommends python-pip3 >/dev/null")
     assert s2 == 0, "安装pip3失败"
     s3 = os.system("sudo pip install docker-compose")
     assert s3 == 0, "安装docker-compose失败"
