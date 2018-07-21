@@ -1,6 +1,17 @@
 #!/bin/bash
 echo "hello world"
 
+echo $USER
+
+echo '$USER'
+echo "$USER"
+
+a=$(ls && echo "yes" || echo "no")
+
+echo $a
+
+echo "我的${USER:1:2}"
+
 # 敏感信息(包括数据库链接,docker 仓库地址)要提前设置环境变量,然后该脚本要提前读环境变量,
 # 该环境变量设置在主机里面永久设置环境变量,docker-compose从虚拟机环境变量里面读
 

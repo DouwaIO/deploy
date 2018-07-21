@@ -1,0 +1,183 @@
+version: '3'
+
+# yml文件其实是解析成json
+# 一整个文件其实是一个project,docker-compose大部分命令既是项目本身也可以针对里面的容器
+# servise 应用容器,实际上可以运行多个相同的镜像实例,也就是里面其实是一个个的容器
+services:
+  douwa_id:
+    image: douwa.tech/hsbs/dwid:dev
+    restart: always
+#    environment:
+    expose:
+      - "8080"
+    networks:
+      - douwa_net
+    container_name: douwa_id
+
+  oauth_db:
+    image: "douwa.tech/library/postgres"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "huansi@2017"
+      PGDATA: "/data"
+    volumes:
+      - "/data/oauth_pg_data:/data"
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    networks:
+      - douwa_net
+    container_name: oauth_db
+
+  transfer_db:
+    image: "douwa.tech/library/postgres"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "huansi@2017"
+      PGDATA: "/data"
+    volumes:
+      - "/data/transfer_pg_data:/data"
+    expose:
+      - "5432"
+    ports:
+      - "5433:5432"
+    networks:
+      - douwa_net
+    container_name: transfer_db
+
+  oauth_redis:
+    image: douwa.tech/library/redis
+    restart: always
+    volumes:
+      - "/data/redis_data:/data"
+    environment:
+      REDIS_PASSWORD: "huansi@2017"
+    command: [
+        "bash", "-c",
+        '
+         docker-entrypoint.sh
+         --requirepass "$$REDIS_PASSWORD"
+        '
+      ]
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    networks:
+      - douwa_net
+    container_name: oauth_redis
+
+  oauth_api:
+    image: douwa.tech/hsbs/oauth:dev
+    restart: always
+    depends_on:
+      - douwa_id
+      - oauth_db
+      - oauth_redis
+    environment:
+      MIGRATE: "1"
+      REDIS_HOST: oauth_redis
+      REDIS_PORT: 6379
+      REDIS_PWD: 'huansi@2017'
+      REDIS_DB: 0
+      PG_HOST: oauth_db
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PWD: 'huansi@2017'
+      PG_DB: postgres
+      GENERATORID_IP: "douwa_id:8080"
+      OAUTH_RPC_HOST: "oauth_api:8888"
+      KEY_URL: "oauth_api:5000/key/user?tenant=tec"
+      OAUTH_URL: "http://127.0.0.1:5000"
+    expose:
+      - "5000"
+      - "8888"
+    ports:
+      - "5000:5000"
+      - "8888:8888"
+    networks:
+      - douwa_net
+    container_name: oauth_api
+  c_api:
+    image: "douwa.tech/hsbs/c_api:${CUSCODE}"
+    restart: always
+    environment:
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_NAME: "${DB_NAME}"
+      IP_PORT: "5000"
+      IP_ADDRESS: c_api
+      RAYGUN_APIKEY:
+      REDIS_HOST: oauth_redis
+      REDIS_PORT: 6379
+      REDIS_PWD: 'huansi@2017'
+      REDIS_DB: 0
+      OAUTH_RPC_HOST: "oauth_api:8888"
+      KEY_URL: "oauth_api:5000/key/user?tenant=tec"
+      OAUTH_URL: "oauth_api:5000"
+    volumes:
+      - "/data/excel:/app/excel"
+    depends_on:
+      - oauth_api
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    networks:
+      - douwa_net
+    container_name: c_api
+
+  c_web:
+    image: "douwa.tech/hsbs/c_web:${CUSCODE}"
+    restart: always
+    environment:
+      API: "http://c_api:8080"
+      OAUTHAPI: "http://oauth_api:5000"
+#      OAUTHAPI: "http://47.97.182.182:32601"
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    networks:
+      - douwa_net
+    depends_on:
+      - c_api
+    container_name: c_web
+
+
+  transfer_api:
+    image: douwa.tech/hsbs/transfer-api:dev
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "huansi@2017"
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: transfer_db
+    expose:
+      - "8888"
+    ports:
+      - "2000:8888"
+    container_name: transfer_api
+    depends_on:
+      - transfer_db
+    networks:
+      - douwa_net
+
+  portainer:
+    image: douwa.tech/hsbs/portainer
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/data/portainer_data:/data"
+    container_name: portainer
+
+
+networks:
+  douwa_net:
+    driver: bridge
+
+
