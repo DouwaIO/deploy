@@ -59,7 +59,7 @@ def deploy():
     s0 = os.system(
         "curl https://raw.githubusercontent.com/DouwaIO/deploy/master/docker-compose.yml > docker-compose.yml")
     assert s0 == 0, "下载compose失败"
-    s1 = os.system("sudo docker login  -u https:douwa.tech -p ${DOCKER_PASSWORD}")
+    s1 = os.system("sudo docker login https:douwa.tech -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}")
     assert s1 == 0, "登录镜像仓库失败"
     s2 = os.system("sudo docker-compose up -d")
     assert s2 == 0, "服务 启动失败"
