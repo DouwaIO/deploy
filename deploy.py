@@ -30,7 +30,7 @@ def install_docker():
     assert step2 == 0, "docker 用户组更改失败"
     step3 = os.system("sudo service docker start")
     assert step3 == 0, "docker 服务启动失败"
-    step4 = os.system("docker run hello-world")
+    step4 = os.system("sudo docker run hello-world")
     assert step4 == 0, "docker 运行失败"
     print("安装docker 成功")
 
@@ -44,9 +44,9 @@ def install_compose():
     assert s1 == 0, "安装pip失败"
     s2 = os.system("sudo apt install python3-pip")
     assert s2 == 0, "安装pip3失败"
-    s3 = os.system("pip install docker-compose")
+    s3 = os.system("sudo pip install docker-compose")
     assert s3 == 0, "安装docker-compose失败"
-    s4 = os.system("docker-compose --version")
+    s4 = os.system("sudo docker-compose --version")
     assert s4 == 0, "docker-compose 启动失败"
     print("安装docker-compose成功")
 
@@ -59,7 +59,7 @@ def deploy():
     assert s0 == 0, "下载compose失败"
     s1 = os.system("docker login ${DOCKER_HOST} -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}")
     assert s1 == 0, "登录镜像仓库失败"
-    s2 = os.system("docker-compose up -d")
+    s2 = os.system("sudo docker-compose up -d")
     assert s2 == 0, "服务 启动失败"
     print("服务启动成功")
 
@@ -72,7 +72,7 @@ def install_runner():
     # 创建配置文件
     # os.system("sudo mkdir /etc/gitlab-runner")
     # assert s0 == 0, "创建runner配置文件夹失败"
-    s1 = os.system("docker run --rm -t -i -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner register \
+    s1 = os.system("sudo docker run --rm -t -i -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner register \
                    -n -u https://gitlab.com/ -r cyVyXLcrRxtgwGz_r2_q --executor docker --docker-image docker\
                    --tag-list {}".format(os.getenv("CUSCODE")))
     assert s1 == 0, "runner配置失败"
@@ -82,7 +82,7 @@ def install_runner():
         a = s.replace(' volumes = ["/cache"]', 'volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]')
     with open('/etc/gitlab-runner/config.toml', 'w') as f:
         f.write(a)
-    s2 = os.system("docker run -d --name gitlab-runner --restart always \
+    s2 = os.system("sudo docker run -d --name gitlab-runner --restart always \
                    -v /etc/gitlab-runner:/etc/gitlab-runner \
                    -v /var/run/docker.sock:/var/run/docker.sock \
                    gitlab/gitlab-runner:latest")
