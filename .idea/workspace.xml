@@ -41,8 +41,8 @@
       <file leaf-file-name="deploy.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deploy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+            <state relative-caret-position="-551">
+              <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="27" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -77,9 +77,9 @@
         <option value="$PROJECT_DIR$/config.env" />
         <option value="$PROJECT_DIR$/deploy.sh" />
         <option value="$PROJECT_DIR$/huansi.sh" />
-        <option value="$PROJECT_DIR$/deploy.py" />
         <option value="$PROJECT_DIR$/install_docker.py" />
         <option value="$PROJECT_DIR$/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/deploy.py" />
       </list>
     </option>
   </component>
@@ -89,7 +89,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="-6" />
     <option name="width" value="1366" />
     <option name="height" value="774" />
@@ -151,7 +151,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-11" width="1368" height="780" extended-state="6" />
+    <frame x="-1" y="-11" width="1368" height="780" extended-state="7" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -161,7 +161,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="right" id="Mongo Explorer" order="3" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33541343" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.49453977" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16136363" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -334,8 +334,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deploy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        <state relative-caret-position="-551">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="27" selection-end-column="40" />
         </state>
       </provider>
     </entry>
