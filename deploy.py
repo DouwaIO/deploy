@@ -26,7 +26,7 @@ import os, sys
 def install_docker():
     # step3 = os.system("sudo service docker start")
     # assert step3 == 0, "docker 服务启动失败"
-    step4 = os.system("sudo docker run hello-world")
+    step4 = os.system("docker run hello-world")
     assert step4 == 0, "docker 运行失败"
     print("安装docker 成功")
 
@@ -55,9 +55,9 @@ def deploy():
     s0 = os.system(
         "curl https://raw.githubusercontent.com/DouwaIO/deploy/master/docker-compose.yml > docker-compose.yml")
     assert s0 == 0, "下载compose失败"
-    s1 = os.system("sudo docker login https://douwa.tech -u $DOCKER_USER -p $DOCKER_PASSWORD")
+    s1 = os.system("docker login https://douwa.tech -u $HSDOCKER_USER -p $HSDOCKER_PASSWORD")
     assert s1 == 0, "登录镜像仓库失败"
-    s2 = os.system("sudo -E docker-compose up -d")
+    s2 = os.system("docker-compose up -d")
     assert s2 == 0, "服务 启动失败"
     print("服务启动成功")
 
@@ -72,7 +72,7 @@ def install_runner():
     # assert s0 == 0, "创建runner配置文件夹失败"
     s1 = os.system("sudo docker run --rm -t -i -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner register \
                    -n -u https://gitlab.com/ -r cyVyXLcrRxtgwGz_r2_q --executor docker --docker-image docker\
-                   --tag-list {}".format(os.getenv("CUSCODE")))
+                   --tag-list {}".format(os.getenv("HSCUSCODE")))
     assert s1 == 0, "runner配置失败"
     os.system("sudo chmod 777 /etc/gitlab-runner/config.toml")
     with open('/etc/gitlab-runner/config.toml', 'r') as f:
