@@ -103,11 +103,11 @@ services:
     image: "douwa.tech/hsbs/c_api:${CUSCODE}"
     restart: always
     environment:
-      DB_USER: "${DB_USER}"
-      DB_PASSWORD: "${DB_PASSWORD}"
-      DB_HOST: "${DB_HOST}"
-      DB_PORT: "${DB_PORT}"
-      DB_NAME: "${DB_NAME}"
+      DB_USER: "$${DB_USER}"
+      DB_PASSWORD: "$${DB_PASSWORD}"
+      DB_HOST: "$${DB_HOST}"
+      DB_PORT: "$${DB_PORT}"
+      DB_NAME: "$${DB_NAME}"
       IP_PORT: "5000"
       IP_ADDRESS: c_api
       RAYGUN_APIKEY:
@@ -166,16 +166,16 @@ services:
       - transfer_db
     networks:
       - douwa_net
-
-  portainer:
-    image: douwa.tech/hsbs/portainer
-    restart: always
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/data/portainer_data:/data"
-    container_name: portainer
-    ports:
-      - "9000:9000"
+#
+#  portainer:
+#    image: douwa.tech/hsbs/portainer
+#    restart: always
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#      - "/data/portainer_data:/data"
+#    container_name: portainer
+#    ports:
+#      - "9000:9000"
 
 networks:
   douwa_net:
