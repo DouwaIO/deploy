@@ -24,10 +24,6 @@ import os, sys
 
 # 安装docker
 def install_docker():
-    step1 = os.system("wget -qO- https://get.docker.com/ | sh")
-    assert step1 == 0, "docker 安装失败"
-    step2 = os.system('sudo usermod -aG docker huansi')
-    assert step2 == 0, "docker 用户组更改失败"
     step3 = os.system("service docker start")
     assert step3 == 0, "docker 服务启动失败"
     step4 = os.system("docker run hello-world")
