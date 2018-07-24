@@ -26,7 +26,7 @@ import os, sys
 def install_docker():
     # step3 = os.system("sudo service docker start")
     # assert step3 == 0, "docker 服务启动失败"
-    step4 = os.system("docker run hello-world")
+    step4 = os.system("sudo docker run hello-world")
     assert step4 == 0, "docker 运行失败"
     print("安装docker 成功")
 
@@ -90,7 +90,6 @@ def install_runner():
 
 if __name__ == "__main__":
     install_docker()
-    install_compose()
     deploy()
     if not os.path.exists('/etc/gitlab-runner'):
         install_runner()
