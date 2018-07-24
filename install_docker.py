@@ -11,3 +11,4 @@ def install_docker():
 
 if __name__ == "__main__":
     install_docker()
+    print("请重启虚拟机")
