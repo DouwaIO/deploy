@@ -85,6 +85,8 @@ def install_runner():
                    -v /var/run/docker.sock:/var/run/docker.sock \
                    gitlab/gitlab-runner:latest")
     assert s2 == 0, "安装runner失败"
+    s3 = os.system("sudo docker restart gitlab-runner")
+    assert s3 == 0 ,"runner 配置成功"
     print("安装runner成功")
 
 
