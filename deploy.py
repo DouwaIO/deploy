@@ -94,4 +94,6 @@ if __name__ == "__main__":
     install_docker()
     install_compose()
     deploy()
-    install_runner()
+    if not os.path.exists('/etc/gitlab-runner'):
+        install_runner()
+    print("服务安装成功")
