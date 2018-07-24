@@ -24,8 +24,8 @@ import os, sys
 
 # 安装docker
 def install_docker():
-    step3 = os.system("service docker start")
-    assert step3 == 0, "docker 服务启动失败"
+    # step3 = os.system("sudo service docker start")
+    # assert step3 == 0, "docker 服务启动失败"
     step4 = os.system("docker run hello-world")
     assert step4 == 0, "docker 运行失败"
     print("安装docker 成功")
