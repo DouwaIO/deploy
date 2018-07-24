@@ -28,9 +28,9 @@ def install_docker():
     assert step1 == 0, "docker 安装失败"
     step2 = os.system('sudo usermod -aG docker huansi')
     assert step2 == 0, "docker 用户组更改失败"
-    step3 = os.system("sudo service docker start")
+    step3 = os.system("service docker start")
     assert step3 == 0, "docker 服务启动失败"
-    step4 = os.system("sudo docker run hello-world")
+    step4 = os.system("docker run hello-world")
     assert step4 == 0, "docker 运行失败"
     print("安装docker 成功")
 
@@ -59,9 +59,9 @@ def deploy():
     s0 = os.system(
         "curl https://raw.githubusercontent.com/DouwaIO/deploy/master/docker-compose.yml > docker-compose.yml")
     assert s0 == 0, "下载compose失败"
-    s1 = os.system("sudo docker login https://douwa.tech -u $DOCKER_USER -p $DOCKER_PASSWORD")
+    s1 = os.system("docker login https://douwa.tech -u $DOCKER_USER -p $DOCKER_PASSWORD")
     assert s1 == 0, "登录镜像仓库失败"
-    s2 = os.system("sudo docker-compose up -d")
+    s2 = os.system("docker-compose up -d")
     assert s2 == 0, "服务 启动失败"
     print("服务启动成功")
 
