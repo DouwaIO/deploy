@@ -71,7 +71,7 @@ def install_runner():
     # os.system("sudo mkdir /etc/gitlab-runner")
     # assert s0 == 0, "创建runner配置文件夹失败"
     s1 = os.system("sudo docker run --rm -t -i -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner register \
-                   -n -u https://gitlab.com/ -r cyVyXLcrRxtgwGz_r2_q --executor docker --docker-image docker\
+                   -n -u https://gitlab.com/ -r cyVyXLcrRxtgwGz_r2_q --executor shell \
                    --tag-list {}".format(os.getenv("HSCUSCODE")))
     assert s1 == 0, "runner配置失败"
     os.system("sudo chmod 777 /etc/gitlab-runner/config.toml")
@@ -83,6 +83,7 @@ def install_runner():
     s2 = os.system("sudo docker run -d --name gitlab-runner --restart always \
                    -v /etc/gitlab-runner:/etc/gitlab-runner \
                    -v /var/run/docker.sock:/var/run/docker.sock \
+                   -v /etc/profile.d/huansi.sh:/etc/profile.d/huansi.sh \
                    gitlab/gitlab-runner:latest")
     assert s2 == 0, "安装runner失败"
     s3 = os.system("sudo docker restart gitlab-runner")
