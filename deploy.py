@@ -93,6 +93,7 @@ def install_runner():
 
 if __name__ == "__main__":
     install_docker()
+    install_compose()
     # deploy()
     if not os.path.exists('/etc/gitlab-runner'):
         install_runner()
