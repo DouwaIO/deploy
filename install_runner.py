@@ -5,9 +5,11 @@ def install_runner():
     # 创建配置文件
     # os.system("sudo mkdir /etc/gitlab-runner")
     # assert s0 == 0, "创建runner配置文件夹失败"
+    HSCUSCODE = input("请输入客户代号HSCUSCODE:")
+    print(HSCUSCODE)
     s1 = os.system("sudo docker run --rm -t -i -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner register \
                    -n -u https://gitlab.com/ -r xT6eJJxxr5GBZtJ1JttG --executor docker --docker-image docker \
-                   --tag-list {}".format(os.getenv("HSCUSCODE")))
+                   --tag-list {hscode}".format(hscode=HSCUSCODE))
     assert s1 == 0, "runner配置失败"
     os.system("sudo chmod 777 /etc/gitlab-runner/config.toml")
     with open('/etc/gitlab-runner/config.toml', 'r') as f:

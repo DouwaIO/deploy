@@ -11,35 +11,32 @@ def init_env():
         print(HSDOCKER_USER)
         HSDOCKER_PASSWORD = input("请输入docker镜像仓库密码HSDOCKER_PASSWORD:")
         print(HSDOCKER_PASSWORD)
-        HSDB_USER = input("请输入ERP数据库用户HSDB_USER:")
-        print(HSDB_USER)
-        HSDB_PASSWORD = input("请输入ERP数据库密码HSDB_PASSWORD:")
-        print(HSDB_PASSWORD)
-        HSDB_HOST = input("请输入ERP数据库主机地址HSDB_HOST:")
+        HSDB_HOST = input("请输入数据库主机地址HSDB_HOST:")
         print(HSDB_HOST)
-        HSDB_PORT = input("请输入ERP数据库端口号HSDB_PORT:")
+        HSDB_PORT = input("请输入数据库端口号HSDB_PORT:")
         print(HSDB_PORT)
+        HSDB_USER = input("请输入数据库用户HSDB_USER:")
+        print(HSDB_USER)
+        HSDB_PASSWORD = input("请输入数据库密码HSDB_PASSWORD:")
+        print(HSDB_PASSWORD)
         HSDB_NAME = input("请输入ERP数据库名称HSDB_NAME:")
-        print(HSDB_NAME)
-        MESDB_USER = input("请输入MES数据库用户MESDB_USER:")
-        print(MESDB_USER)
-        MESDB_PASSWORD = input("请输入MES数据库密码MESDB_PASSWORD:")
-        print(MESDB_PASSWORD)
-        MESDB_HOST = input("请输入MES数据库主机地址MESDB_HOST:")
-        print(MESDB_HOST)
-        MESDB_PORT = input("请输入MES数据库端口号MESDB_PORT:")
-        print(MESDB_PORT)
         MESDB_NAME = input("请输入MES数据库名称MESDB_NAME:")
         print(MESDB_NAME)
         HSPASSWORD = "huansi.net"
-        env = dict(HSCUSCODE=HSCUSCODE, HSDB_USER=HSDB_USER,
-                   HSDB_PASSWORD=HSDB_PASSWORD, HSDB_HOST=HSDB_HOST,
-                   HSDB_PORT=HSDB_PORT, HSDB_NAME=HSDB_NAME, HSDOCKER_HOST=HSDOCKER_HOST,
-                   HSDOCKER_USER=HSDOCKER_USER, HSDOCKER_PASSWORD=HSDOCKER_PASSWORD,
-                   HSPASSWORD=HSPASSWORD,MESDB_USER=MESDB_USER,MESDB_PASSWORD=MESDB_PASSWORD,
-                   MESDB_HOST=MESDB_HOST,MESDB_NAME=MESDB_NAME,MESDB_PORT=MESDB_PORT)
+        env = dict(HSCUSCODE=HSCUSCODE,
+                   HSDOCKER_HOST=HSDOCKER_HOST,
+                   HSDOCKER_USER=HSDOCKER_USER,
+                   HSDOCKER_PASSWORD=HSDOCKER_PASSWORD,
+                   HSDB_HOST=HSDB_HOST,
+                   HSDB_PORT=HSDB_PORT,
+                   HSDB_USER=HSDB_USER,
+                   HSDB_PASSWORD=HSDB_PASSWORD,
+                   HSDB_NAME=HSDB_NAME,
+                   MESDB_NAME=MESDB_NAME,
+                   HSPASSWORD=HSPASSWORD,
+                   )
         pprint(env)
-        flag = input("请检查以上环境变量设置是否争取,确认请输入Y,输入其他,重新设置:")
+        flag = input("请检查以上环境变量设置是否正确,确认请输入Y,输入其他,重新设置:")
         if flag == 'Y':
             with open("/etc/profile.d/huansi.sh", "w") as f:
                 for k, v in env.items():
