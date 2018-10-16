@@ -23,8 +23,6 @@ def init_env():
         print(HSDB_NAME)
         MESDB_NAME = input("请输入MES数据库名称MESDB_NAME:")
         print(MESDB_NAME)
-        OAUTHDB_NAME = input("请输入MES数据库名称MESDB_NAME:")
-        print(OAUTHDB_NAME)
         HSPASSWORD = "huansi.net"
         env = dict(HSCUSCODE=HSCUSCODE,
                    HSDOCKER_HOST=HSDOCKER_HOST,
@@ -36,7 +34,6 @@ def init_env():
                    HSDB_PASSWORD=HSDB_PASSWORD,
                    HSDB_NAME=HSDB_NAME,
                    MESDB_NAME=MESDB_NAME,
-                   OAUTHDB_NAME=OAUTHDB_NAME,
                    HSPASSWORD=HSPASSWORD,
                    )
         pprint(env)
