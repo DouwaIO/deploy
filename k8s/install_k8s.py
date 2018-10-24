@@ -2,6 +2,7 @@ import os
 
 
 def install_compose():
+    s11 = os.system("sudo cp ./sources.list /etc/apt/sources.list")
     s0 = os.system("sudo apt update")
     assert s0 == 0, "apt 更新失败"
     s2 = os.system(
@@ -38,9 +39,9 @@ def get_google():
     assert s4 == 0, "拷贝配置失败"
     s5 = os.system("sudo /etc/init.d/polipo restart")
     assert s5 == 0, "polipo重启失败"
-    s6 = os.system("source ./proxy.sh")
-    assert s6 == 0, "proxy 环境变量设置失败"
-    s7 = os.system("sudo sslocla -c ./.shadowsocks.json -d start")
+    os.putenv('http_proxy',"http://127.0.0.1:8123/")
+    os.putenv('https_proxy',"http://127.0.0.1:8123/")
+    s7 = os.system("sudo sslocal -c ./.shadowsocks.json -d start")
     assert s7 == 0, "翻墙成功"
     s8 = os.system("curl www.google.com")
     assert s8 == 0, "eme 没有搞定google"
@@ -52,13 +53,16 @@ def install_k8s():
     assert s0 == 0, "拷贝list失败"
     s1 = os.system("sudo cp ./apt.conf /etc/apt/apt.conf")
     assert s1 == 0, "拷贝apt.conf失败"
+    os.putenv('http_proxy',"http://127.0.0.1:8123/")
+    os.putenv('https_proxy',"http://127.0.0.1:8123/")
+    os.system("env")
     s2 = os.system(
-        "sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -")
+        "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -")
     assert s2 == 0, "增加公钥失败"
     s3 = os.system('sudo apt update')
     assert s3 == 0, "更新源失败"
     s4 = os.system(
-        'sudo apt install -y -qq --no-install-recommends kubelet kubeadm kubectl >/dev/null')
+        'sudo apt install -y  kubelet kubeadm kubectl')
     assert s4 == 0, "安装kuberadm失败"
     s5 = os.system("kubeadm version")
     assert s5 == 0, "kubeadm 安装失败"
@@ -68,5 +72,5 @@ if __name__ == "__main__":
     install_compose()
     install_shadowsocks()
     get_google()
-
+    install_k8s()    
     print("请重启虚拟机")
