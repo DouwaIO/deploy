@@ -15,7 +15,7 @@ def fix_docker():
     assert s3 == 0
     assert s4 == 0
     s5 = os.system('systemctl show --property=Environment docker')
-    print("安装shadowsocks成功")
+    print("docker代理配置成功")
 
 if __name__ == "__main__":
     fix_docker()
